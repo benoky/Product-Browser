@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
 import server.LoginDAO;
 
 public class SIGNUP_001Controller implements Initializable {
@@ -26,11 +27,6 @@ public class SIGNUP_001Controller implements Initializable {
 
 	boolean check_id = false;
 
-	String uId = signUp_id.getText();
-	String uPw = signUp_pw.getText();
-	String uName = signUp_name.getText();
-	String uMail = signUp_email.getText();
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		checkID_btn.setOnAction(e -> CHECK_ID_EVENT(e));
@@ -40,12 +36,15 @@ public class SIGNUP_001Controller implements Initializable {
 	@FXML
 	// 아이디 중복 확인
 	void CHECK_ID_EVENT(ActionEvent event) {
-
+		
+		String uId = signUp_id.getText();
+		
 		boolean id_match = Pattern.matches("^[0-9a-z]*$", uId); // 아이디가 숫자, 영어 소문자로만 이루어지면 true, 아니면 false
 		boolean result = LoginDAO.idCompare(uId);
-
+		String ptr = null;
+		
 		// 아이디 빈칸 체크
-		if (uId == null || uId.equals("")) {
+		if (uId.equals(ptr) || uId.equals("")) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle(" ");
 			alert.setContentText("아이디를 입력해주세요.");
@@ -89,6 +88,12 @@ public class SIGNUP_001Controller implements Initializable {
 	@FXML
 	// DB에 저장
 	void SIGN_UP_END_EVENT(ActionEvent event) {
+		
+		String uId = signUp_id.getText();
+		String uPw = signUp_pw.getText();
+		String uName = signUp_name.getText();
+		String uMail = signUp_email.getText();
+		
 		LoginDAO.SignUp(uId, uPw, uName, uMail);
 		
 		// 가입성공 메세지
