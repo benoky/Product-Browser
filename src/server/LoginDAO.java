@@ -32,7 +32,6 @@ public class LoginDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 //	--------------------------------------아이디 중복 확인--------------------------------------

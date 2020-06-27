@@ -105,7 +105,6 @@ public class SIGNUP_001Controller implements Initializable {
 		// 회원가입 창 종료
 		Stage stage = (Stage) SIGNUP_btn.getScene().getWindow();
 		stage.close();
-
 	}
 
 }

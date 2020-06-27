@@ -23,9 +23,16 @@ public class AuctionCrawler extends Thread{
 	Elements conCharge; //파싱한 배송비용을 저장
 	Elements conImage; //상품의 이미지 주소를 저장
 	
+	private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
+
+	
 	//생성자로 url을 받아들임
 	public AuctionCrawler(String url) {
-		conn=Jsoup.connect(url); //매개변수로 가져온 url을 이용해 웹 사이트와 연결
+		//conn=Jsoup.connect(url); //매개변수로 가져온 url을 이용해 웹 사이트와 연결
+		
+		//Connection conn = Jsoup.connect(url) .header("Content-Type", "application/json;charset=UTF-8") .userAgent(USER_AGENT) .method(Connection.Method.GET) .ignoreContentType(true);
+
+		Connection conn = Jsoup.connect(url).userAgent(USER_AGENT);
 		try {
 			html=conn.get(); //가져온 html소스를 필드에 저장
 		} catch (IOException e) {
@@ -70,19 +77,16 @@ public class AuctionCrawler extends Thread{
 			//상품목록에서 상품의 썸네일 이미지를 가져오는 영역
 			conImage=con2.select("img.image--itemcard");
 			String img;
+			//System.out.println(con2.outerHtml());
+			//System.out.println(conImage.outerHtml());
 			try {
 				img=conImage.get(i).attr("src");
 			}catch(IndexOutOfBoundsException e) {
 				img="file:\\C:\\Users\\czmn\\OneDrive\\바탕 화면\\cgv.png";
 			}
-
-			/*System.out.println("상품명 : "+conName.text());
-			System.out.println("디테일 주소 : "+detailUrlStr);
-			System.out.println("이미지 수소 : "+img);
-			System.out.println("=================");*/
 			
 			//상품명, 가격, 평점, 상세 페이지 주소, 배송비, 이미지 주소
-			TableRowModel.list.add(new TableRowModel(conName.text(),conPrice.text(),tmpRating,detailUrlStr,tmpCharge,new ImageView(new Image(img,200, 200, false, false))));
+			TableRowModel.list.add(new TableRowModel("옥션",conName.text(),conPrice.text(),tmpRating,detailUrlStr,tmpCharge,new ImageView(new Image(img,200, 200, false, false))));
 
 			i++;
 		}

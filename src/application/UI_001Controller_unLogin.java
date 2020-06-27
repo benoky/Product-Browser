@@ -31,11 +31,12 @@ public class UI_001Controller_unLogin implements Initializable{
 	
 	@FXML private Button searchBtn =new Button();
 	@FXML private TextField searchWordField=new TextField();
+	@FXML private Button basketBtn=new Button();
+	@FXML private Button freeDeliveryBtn=new Button();
 	
 	static String searchWord; //검색어 입력 시 검색어를 저장하여 다른 UI Controller에서 사용허게 함
 	
-	@FXML private Button freeDeliveryBtn=new Button();
-	
+		
 	//--------------------- 회원가입 창 ---------------------
 	public void handleUI_001SignUpBtnAction(ActionEvent event) {
 		try {
@@ -89,11 +90,16 @@ public class UI_001Controller_unLogin implements Initializable{
 			Parent UI_002 = FXMLLoader.load(getClass().getResource("UI_002_unLogin.fxml"));
 			Scene scene=new Scene(UI_002);
 			Stage primaryStage=(Stage)searchBtn.getScene().getWindow();
+			
+			//Main.mainOverview.getChildren().add(UI_002);
+			//System.out.println(Main.mainOverview.toString());
 			primaryStage.setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	//'무료배송'버튼 선택시 UI_005를 불러오기 위한 동작 핸들러
 	public void handleUI_005BtnAction(ActionEvent event) {
 		try {
 			Parent UI_005 = FXMLLoader.load(getClass().getResource("UI_005_unLogin.fxml"));
@@ -105,9 +111,20 @@ public class UI_001Controller_unLogin implements Initializable{
 		}
 	}
 	
+	//'찜 목록' 버튼 선택 시 UI_004를 불러오기 위한 동작 핸들러
+	public void handleUI_004BtnAction(ActionEvent event) {
+		try {
+			Parent UI_004 = FXMLLoader.load(getClass().getResource("UI_004_unLogin.fxml"));
+			Scene scene=new Scene(UI_004);
+			Stage primaryStage=(Stage)basketBtn.getScene().getWindow();
+			primaryStage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void initialize(java.net.URL arg0, ResourceBundle arg1) {
-	
 		signup_btn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				handleUI_001SignUpBtnAction(event);
@@ -130,6 +147,12 @@ public class UI_001Controller_unLogin implements Initializable{
 			public void handle(ActionEvent event) {
 				handleUI_005BtnAction(event);
 			}
-		});	
+		});
+		
+		basketBtn.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				handleUI_004BtnAction(event);
+			}
+		});
 	}
 }

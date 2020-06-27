@@ -49,6 +49,8 @@ public class UI_002Controller_unLogin implements Initializable {
     //검색어를 입력할 텍스트 필드와 검색 버튼을 생성하기 위해 각각의 객체 생성
     @FXML TextField searchWordField=new TextField();
     @FXML Button searchBtn=new Button();
+    @FXML private Button basketBtn=new Button();
+    
     String searchWord;
     
     Thread aThread;
@@ -96,18 +98,16 @@ public class UI_002Controller_unLogin implements Initializable {
 			alert.setContentText("아이디 혹은 패스워드를 확인해주세요.");
 			alert.showAndWait();
 		}
-		
 	}
-    
-    //테이블의 상품목록(행)을 클릭했을 때 UI_003을 가져오는 동작 핸들러
-    public void handleUI_003SelectAction(ActionEvent event) {
+	
+	public void handleUI_004BtnAction(ActionEvent event) {
 		try {
-			Parent UI_003 = FXMLLoader.load(getClass().getResource("UI_003_unLogin.fxml"));
-			Scene scene=new Scene(UI_003);
-			Stage primaryStage=(Stage)table.getScene().getWindow();
-			
+			System.out.println("UI_004실행0");
+			Parent UI_004 = FXMLLoader.load(getClass().getResource("UI_004_unLogin.fxml"));
+			System.out.println("UI_004실행1");
+			Scene scene=new Scene(UI_004);
+			Stage primaryStage=(Stage)basketBtn.getScene().getWindow();
 			primaryStage.setScene(scene);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -134,7 +134,6 @@ public class UI_002Controller_unLogin implements Initializable {
         shippingCharge.setCellValueFactory(cellData -> cellData.getValue().getShippingCharge());
         image.setCellValueFactory(new PropertyValueFactory<TableRowModel, ImageView>("imageView"));
         
-        //image.setMaxWidth(200);
         table.setItems(TableRowModel.list);
     }
     
@@ -162,32 +161,27 @@ public class UI_002Controller_unLogin implements Initializable {
 
         table.setItems(TableRowModel.list);
         
+        //상품 목록이 나오는 테이블중 하나를 선택하면 동작되는 이벤트
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowModel>() {
             @Override
             public void changed(ObservableValue<? extends TableRowModel> observable, TableRowModel oldValue, TableRowModel newValue) {
                 TableRowModel model = table.getSelectionModel().getSelectedItem();
-                //System.out.println("name : " +  model.getName());
-                //System.out.println("price : " +  model.getPrice());
                 try {
-                 
+                	//선택한 상품의 정보를 UI_003에게 넘김
+                	UI_003Contorller_unLogin.site=model.getSite();
+                	UI_003Contorller_unLogin.name=model.getName();
+                	UI_003Contorller_unLogin.price=model.getPrice();
+                	UI_003Contorller_unLogin.rating=model.getRating();
+                	UI_003Contorller_unLogin.shippingCharge=model.getShippingCharge();
+                	UI_003Contorller_unLogin.detailUrl=model.getDetailUrl();
+                	UI_003Contorller_unLogin.imageView=model.getImageView();
+                	
+                	//UI_003호출
                 	Parent UI_003 =FXMLLoader.load(getClass().getResource("UI_003_unLogin.fxml"));
                     Scene scene = new Scene(UI_003);
                     Stage primaryStage =(Stage)table.getScene().getWindow();
                     primaryStage.setScene(scene);
                     primaryStage.show();
-                    
-                	//URL fxmlPath=new File("src/application/")
-                	
-                	/*FXMLLoader loader = new FXMLLoader();
-        			loader.setLocation(getClass().getResource("UI_003_unLogin.fxml"));
-        			BorderPane anchorPane = (BorderPane)loader.load();
-        			
-        			Scene scene = new Scene(anchorPane);
-        			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        				
-        			Stage primaryStage =(Stage)table.getScene().getWindow();
-        			primaryStage.setScene(scene);
-        			primaryStage.show();*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -210,6 +204,12 @@ public class UI_002Controller_unLogin implements Initializable {
 		login_btn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				handleUI_001LoginBtnAction(event);
+			}
+		});
+		
+		basketBtn.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				handleUI_004BtnAction(event);
 			}
 		});
     }

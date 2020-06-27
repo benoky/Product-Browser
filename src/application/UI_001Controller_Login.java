@@ -20,10 +20,10 @@ public class UI_001Controller_Login implements Initializable {
 	@FXML private Button searchBtn = new Button();
 	@FXML private Button logout_btn = new Button();
 	@FXML private TextField searchWordField = new TextField();
-
-	static String searchWord; // 검색어 입력 시 검색어를 저장하여 다른 UI Controller에서 사용허게 함
-
+	@FXML private Button basketBtn=new Button();
 	@FXML private Button freeDeliveryBtn = new Button();
+	
+	static String searchWord; // 검색어 입력 시 검색어를 저장하여 다른 UI Controller에서 사용허게 함
 
 	// 로그아웃 버튼 클릭 시 초기화면으로
 	public void handleUI_001unLoginBtnAction(ActionEvent event) {
@@ -51,6 +51,7 @@ public class UI_001Controller_Login implements Initializable {
 		}
 	}
 
+	//'무료배송'버튼 선택시 UI_005를 불러오기 위한 동작 핸들러
 	public void handleUI_005BtnAction(ActionEvent event) {
 		try {
 			Parent UI_005 = FXMLLoader.load(getClass().getResource("UI_005_Login.fxml"));
@@ -61,6 +62,20 @@ public class UI_001Controller_Login implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	//'찜 목록' 버튼 선택 시 UI_004를 불러오기 위한 동작 핸들러
+		public void handleUI_004BtnAction(ActionEvent event) {
+			try {
+				System.out.println("UI_004실행0");
+				Parent UI_004 = FXMLLoader.load(getClass().getResource("UI_004_Login.fxml"));
+				System.out.println("UI_004실행1");
+				Scene scene=new Scene(UI_004);
+				Stage primaryStage=(Stage)basketBtn.getScene().getWindow();
+				primaryStage.setScene(scene);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 	@Override
 	public void initialize(java.net.URL arg0, ResourceBundle arg1) {
@@ -80,6 +95,12 @@ public class UI_001Controller_Login implements Initializable {
 		freeDeliveryBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				handleUI_005BtnAction(event);
+			}
+		});
+		
+		basketBtn.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				handleUI_004BtnAction(event);
 			}
 		});
 	}

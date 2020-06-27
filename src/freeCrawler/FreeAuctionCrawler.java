@@ -78,7 +78,7 @@ public class FreeAuctionCrawler extends Thread{
 			//tmpCharge가 무료배송인 것만 저장하여 테이블에 표시함
 			if(tmpCharge.equals("무료배송")) {
 				//상품명, 가격, 평점, 상세 페이지 주소, 배송비, 이미지 주소
-				TableRowModel.list.add(new TableRowModel(conName.text(),conPrice.text(),tmpRating,detailUrlStr,tmpCharge,new ImageView(new Image(img,200, 200, false, false))));
+				TableRowModel.list.add(new TableRowModel("옥션",conName.text(),conPrice.text(),tmpRating,detailUrlStr,tmpCharge,new ImageView(new Image(img,200, 200, false, false))));
 			}
 
 			/*System.out.println("상품명 : "+conName.text());

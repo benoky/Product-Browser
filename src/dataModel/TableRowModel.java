@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
  
 public class TableRowModel {
+	private StringProperty site;
     private StringProperty name;
     private StringProperty price;
     private StringProperty rating;
@@ -17,7 +18,8 @@ public class TableRowModel {
     static public ObservableList<TableRowModel> list = FXCollections.observableArrayList(); //테이블에 표시할 데이터를 담는 리스트 객체
     
 	// 생성자 (Alt + Shift + S 로 쉽게 등록(Constructor))
-    public TableRowModel(String name, String price,String rating,String detailUrl,String shippingCharge,ImageView imageView) {
+    public TableRowModel(String site, String name, String price,String rating,String detailUrl,String shippingCharge,ImageView imageView) {
+    	this.site=new SimpleStringProperty(site);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleStringProperty(price);
         this.rating=new SimpleStringProperty(rating);
@@ -26,6 +28,12 @@ public class TableRowModel {
         this.imageView=imageView;
     }
 
+	public StringProperty getSite() {
+		return site;
+	}
+	public void setSite(StringProperty site) {
+		this.site = site;
+	}
 	public ImageView getImageView() {
 		return imageView;
 	}
@@ -38,7 +46,6 @@ public class TableRowModel {
 	public void setShippingCharge(StringProperty shippingCharge) {
 		this.shippingCharge = shippingCharge;
 	}
-	// 게터세터 (Alt + Shift + S 로 쉽게 등록)
     public StringProperty getName() {
         return name;
     }

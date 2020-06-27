@@ -24,7 +24,6 @@ public class DBConnection {
 		} catch (SQLException e) {
 			System.out.println("접속 정보가 올바르지 않습니다.");
 		}
-
 		return conn;
 	}
 

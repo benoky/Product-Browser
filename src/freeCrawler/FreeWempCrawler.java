@@ -72,7 +72,7 @@ public class FreeWempCrawler extends Thread{
 			
 			if(tmpCharge.equals("무료배송")) {
 				//상품명, 가격, 평점, 상세 페이지 주소, 배송비, 이미지 주소
-				TableRowModel.list.add(new TableRowModel(conName.text(),conPrice.text(),conRating.text(),detailUrlStr,tmpCharge,new ImageView(new Image(tmpImage,200, 200, false, false))));
+				TableRowModel.list.add(new TableRowModel("위메프",conName.text(),conPrice.text(),conRating.text(),detailUrlStr,tmpCharge,new ImageView(new Image(tmpImage,200, 200, false, false))));
 			}
 			
 			/*System.out.println("상품명 : "+conName.text());

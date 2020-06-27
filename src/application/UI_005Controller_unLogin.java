@@ -48,6 +48,7 @@ public class UI_005Controller_unLogin implements Initializable{
     //검색어를 입력할 텍스트 필드와 검색 버튼을 생성하기 위해 각각의 객체 생성
     @FXML TextField searchWordField=new TextField();
     @FXML Button searchBtn=new Button();
+    @FXML private Button basketBtn=new Button();
     String searchWord;
     
     Thread wThread; //위메프 크롤러를 스레드로 작동시키기 위한 객체
@@ -122,25 +123,47 @@ public class UI_005Controller_unLogin implements Initializable{
         table.setItems(TableRowModel.list);
     }
     
+  //'찜 목록' 버튼 선택 시 UI_004를 불러오기 위한 동작 핸들러
+  	public void handleUI_004BtnAction(ActionEvent event) {
+  		try {
+  			System.out.println("UI_004실행0");
+  			Parent UI_004 = FXMLLoader.load(getClass().getResource("UI_004_unLogin.fxml"));
+  			System.out.println("UI_004실행1");
+  			Scene scene=new Scene(UI_004);
+  			Stage primaryStage=(Stage)basketBtn.getScene().getWindow();
+  			primaryStage.setScene(scene);
+  		} catch (IOException e) {
+  			e.printStackTrace();
+  		}
+  	}
+    
     //처음 UI_002가 UI_001에서 검색어를 받아 실행 되었을떄의 동작  
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	//상품 목록이 나오는 테이블중 하나를 선택하면 동작되는 이벤트
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowModel>() {
             @Override
             public void changed(ObservableValue<? extends TableRowModel> observable, TableRowModel oldValue, TableRowModel newValue) {
                 TableRowModel model = table.getSelectionModel().getSelectedItem();
-                Parent UI_003;
-				try {
-					UI_003 = FXMLLoader.load(getClass().getResource("UI_003_unLogin.fxml"));
-					Scene scene = new Scene(UI_003);
-	                Stage primaryStage =(Stage)table.getScene().getWindow();
-	                primaryStage.setScene(scene);
-	                primaryStage.show();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                
+                try {
+                	//선택한 상품의 정보를 UI_003에게 넘김
+                	UI_003Contorller_unLogin.site=model.getSite();
+                	UI_003Contorller_unLogin.name=model.getName();
+                	UI_003Contorller_unLogin.price=model.getPrice();
+                	UI_003Contorller_unLogin.rating=model.getRating();
+                	UI_003Contorller_unLogin.shippingCharge=model.getShippingCharge();
+                	UI_003Contorller_unLogin.detailUrl=model.getDetailUrl();
+                	UI_003Contorller_unLogin.imageView=model.getImageView();
+                	
+                	//UI_003호출
+                	Parent UI_003 =FXMLLoader.load(getClass().getResource("UI_003_unLogin.fxml"));
+                    Scene scene = new Scene(UI_003);
+                    Stage primaryStage =(Stage)table.getScene().getWindow();
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         
@@ -148,6 +171,12 @@ public class UI_005Controller_unLogin implements Initializable{
         searchBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				handleSearchBtnAction(event);
+			}
+		});
+        
+        basketBtn.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				handleUI_004BtnAction(event);
 			}
 		});
         
