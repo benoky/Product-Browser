@@ -82,11 +82,18 @@ public class AuctionCrawler extends Thread{
 			try {
 				img=conImage.get(i).attr("src");
 			}catch(IndexOutOfBoundsException e) {
-				img="file:\\C:\\Users\\czmn\\OneDrive\\바탕 화면\\cgv.png";
+				
+				img="application/nullImage.png";
+				//img=Class.forName("application.").getResource("nullImage.png");
 			}
 			
 			//상품명, 가격, 평점, 상세 페이지 주소, 배송비, 이미지 주소
-			TableRowModel.list.add(new TableRowModel("옥션",conName.text(),conPrice.text(),tmpRating,detailUrlStr,tmpCharge,new ImageView(new Image(img,200, 200, false, false))));
+			try {
+				TableRowModel.list.add(new TableRowModel("옥션",conName.text(),conPrice.text().replace("원",""),tmpRating,detailUrlStr,tmpCharge.replace("원",""),img,new ImageView(new Image(img,200, 200, false, false))));
+			}catch(IllegalStateException e) {
+				
+			}
+			//TableRowModel.list.add(new TableRowModel("옥션",conName.text(),conPrice.text().replace("원",""),tmpRating,detailUrlStr,tmpCharge.replace("원",""),img,new ImageView(new Image(img,200, 200, false, false))));
 
 			i++;
 		}

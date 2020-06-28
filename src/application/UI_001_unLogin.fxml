@@ -20,7 +20,6 @@
                <children>
                   <TextField fx:id="searchWordField" layoutX="325.0" layoutY="66.0" prefHeight="23.0" prefWidth="300.0" promptText="검색어 입력" />
                   <Button fx:id="searchBtn" layoutX="625.0" layoutY="66.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" text="검색" />
-                  <Button fx:id="freeDeliveryBtn" layoutY="153.0" mnemonicParsing="false" text="무료배송" />
                </children>
                <BorderPane.margin>
                   <Insets left="250.0" />
@@ -30,15 +29,17 @@
          <left>
             <AnchorPane prefHeight="750.0" prefWidth="250.0" BorderPane.alignment="CENTER">
        <children>
-          <Button fx:id="login_btn" layoutX="44.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="로그인" textOverrun="CENTER_ELLIPSIS" />
-            <Button fx:id="signup_btn" layoutX="140.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="회원가입" textOverrun="CENTER_ELLIPSIS" />
-            <TextField fx:id="login_id" layoutX="44.0" layoutY="28.0" promptText="ID" />
-                  <PasswordField fx:id="login_pw" layoutX="44.0" layoutY="75.0" promptText="PW" />
-                  <Button fx:id="basketBtn" layoutX="109.0" layoutY="211.0" mnemonicParsing="false" text="찜 목록" />
+                  <Button fx:id="basketBtn" layoutX="97.0" layoutY="130.0" mnemonicParsing="false" text="찜 목록" />
+                  <Button fx:id="freeDeliveryBtn" layoutX="93.0" layoutY="160.0" mnemonicParsing="false" text="무료배송" />
+                  <Button fx:id="mainBtn" layoutX="105.0" layoutY="70.0" mnemonicParsing="false" text="메인" />
+                  <Button fx:id="nomalSearchBtn" layoutX="93.0" layoutY="100.0" mnemonicParsing="false" text="일반검색" />
          </children>
          <BorderPane.margin>
-            <Insets right="-50.0" />
-         </BorderPane.margin></AnchorPane>
+            <Insets right="-50.0" top="-180.0" />
+         </BorderPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></AnchorPane>
          </left>
       </BorderPane>
    </children>
